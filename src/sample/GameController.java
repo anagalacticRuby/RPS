@@ -1,5 +1,5 @@
 package sample;
-/** Sample Skeleton for 'sample.fxml' Controller Class */
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -72,27 +72,30 @@ public class GameController {
         || (playerScissorsButton.isSelected() && computerScissorsButton.isSelected())) {
       setGamesTiedCount(getGamesTiedCount() + 1);
       winnerLabel.setText("TIE GAME");
+      winnerLabel.setVisible(true);
       return "Tied Game";
     } else if ((playerRockButton.isSelected() && computerScissorsButton.isSelected())
         || (playerPaperButton.isSelected() && computerRockButton.isSelected())
-        || (playerScissorsButton.isSelected() && computerScissorsButton.isSelected())) {
-      setGamesLostCount(getGamesWonCount() + 1);
+        || (playerScissorsButton.isSelected() && computerPaperButton.isSelected())) {
+      setGamesWonCount(getGamesWonCount() + 1);
       winnerLabel.setText("Player Wins");
+      winnerLabel.setVisible(true);
       return "Player Wins";
 
     } else {
       setGamesLostCount(getGamesLostCount() + 1);
       winnerLabel.setText("Player Loses");
+      winnerLabel.setVisible(true);
       return "Player Loses";
     }
   }
 
   private void setComputerChoice() {
     Random randomGenerator = new Random();
-    int randomNumber = randomGenerator.nextInt(8);
-    if (randomNumber <= 2) {
+    int randomNumber = randomGenerator.nextInt(3);
+    if (randomNumber == 0) {
       computerRockButton.setSelected(true);
-    } else if (randomNumber <= 5) {
+    } else if (randomNumber == 1) {
       computerPaperButton.setSelected(true);
     } else {
       computerScissorsButton.setSelected(true);
@@ -101,12 +104,12 @@ public class GameController {
 
   private void updateScorecard(String gameResult) {
     if (gameResult.equals("Tied Game")) {
-      tiedGamesLabel.setText(String.valueOf(getGamesTiedCount()) + " Ties");
+      tiedGamesLabel.setText(getGamesTiedCount() + " Ties");
     } else if (gameResult.equals("Player Wins")) {
-      gamesWonLabel.setText(String.valueOf(getGamesWonCount()) + " Wins");
+      gamesWonLabel.setText(getGamesWonCount() + " Wins");
     } else {
 
-      lostGamesLabel.setText(String.valueOf(getGamesLostCount()) + " Losses");
+      lostGamesLabel.setText(getGamesLostCount() + " Losses");
     }
   }
 
